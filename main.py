@@ -1,5 +1,6 @@
 from interfaces import put_this, get_this
 
+password = "123"
 
 routrar = [
     ("192.168.99.11", 1, "192.168.12.1", "LAN mot STO och GBG"),  # ISP
@@ -12,5 +13,3 @@ for host, port, ip, description in routrar:
 
 
 
-for host, port in routrar:
-    get_this(host, port)
