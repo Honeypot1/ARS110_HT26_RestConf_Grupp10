@@ -30,7 +30,7 @@ def set_ospf(host, router_id, networks, password):
     print(svar.status_code, svar.text)
 
 
-def set_default_originate(host, password):
+def set_default(host, password):
     headers = {"Content-Type": "application/yang-data+json"}
     url = f"https://{host}/restconf/data/Cisco-IOS-XE-native:native/router"
     payload = {
@@ -53,6 +53,13 @@ def set_default_originate(host, password):
                             verify=False)
     print(svar.status_code, svar.text)
 
+def set_if_ospf(host, port, settings, password):
+    headers = {"Content-Type": "application/yang-data+json"}
+    url = f"https://{host}/restconf/data/Cisco-IOS-XE-native:native/interface/GigabitEthernet=0%2F0%2F{port}"
+    payload = {
+            }
+
+
 
 if __name__ == "__main__":
     password = "123"
@@ -74,4 +81,4 @@ if __name__ == "__main__":
     
         set_ospf(host, router_id, networks, password)
 
-    set_default_originate("192.168.99.11", password)  # ISP
+    set_default("192.168.99.11", password)  # ISP
