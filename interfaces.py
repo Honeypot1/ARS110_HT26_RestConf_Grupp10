@@ -22,6 +22,9 @@ def put_this(host, port, ip, netmask, description, password):
             "ietf-ip:ipv6": {}
         }
     }
-    svar = requests.put(url, json=payload, headers=headers,
-                        auth=("admin", password), verify=False)
+    svar = requests.put(url,
+                    json=payload,
+                    headers=headers,
+                    auth=("admin", password), 
+                    verify=False)
     print(svar.status_code, svar.text)
