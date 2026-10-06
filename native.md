@@ -25,7 +25,7 @@ För OSPF fanns inget fungerande standardalternativ. `ietf-ospf` tog emot vår P
 
 Vi läste först konfigen med GET i Postman. Svaret har samma format som RESTCONF förväntar sig vid skrivning, så vi kopierade det som body och bytte ut värdena. När anropet fungerade i Postman flyttade vi payloaden till Python och ersatte värdena med variabler.
 
-- Interface: GET `ietf-interfaces:interfaces/interface=GigabitEthernet0%2F0%2F0` → `put_this` i `interfaces.py` (bild 09)
-- OSPF: GET `Cisco-IOS-XE-native:native/router` → `set_ospf` i `ospf.py` (bild 10)
+- Interface: GET `ietf-interfaces:interfaces/interface=GigabitEthernet0%2F0%2F0` → `put_this` i `interfaces.py` (bild 06)
+- OSPF: GET `Cisco-IOS-XE-native:native/router` → `set_ospf` i `ospf.py` (bild 07)
 
 URL och payload måste börja på samma nivå. URL som slutar på `native/router` tar en payload som börjar med `Cisco-IOS-XE-native:router`. Annars svarar routern `400 missing element`.
