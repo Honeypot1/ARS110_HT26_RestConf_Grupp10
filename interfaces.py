@@ -1,10 +1,13 @@
 import requests
 import urllib3
+
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 def get_this(host, name, password):
     url = f"https://{host}/restconf/data/ietf-interfaces:interfaces/interface={name.replace('/', '%2F')}"
-    svar = requests.get(url, auth=("admin", password), verify=False)
+    svar = requests.get(url, 
+                    auth=("admin", password), 
+                    verify=False)
     print(svar.text)
 
 def put_this(host, name, ip, netmask, description, password):

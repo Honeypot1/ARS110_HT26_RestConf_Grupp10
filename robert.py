@@ -23,17 +23,17 @@ kontroller = [
     (ISP, f"restconf/data/ietf-interfaces:interfaces/interface=Loopback0", "172.16.0.1", "ISP loopback"),
     (STO, f"restconf/data/ietf-interfaces:interfaces/interface=GigabitEthernet0%2F0%2F{LAN}", "192.168.12.2", "STO LAN-IP"),
     (STO, f"restconf/data/ietf-interfaces:interfaces/interface=Loopback0", "172.17.0.1", "STO loopback"),
-    # (GBG, f"restconf/data/ietf-interfaces:interfaces/interface=GigabitEthernet0%2F0%2F{LAN}", "192.168.12.3", "GBG LAN-IP"),
-    # (GBG, f"restconf/data/ietf-interfaces:interfaces/interface=GigabitEthernet0%2F0%2F{PC}", "12.12.12.13", "GBG PC-IP"),
-    # (GBG, f"restconf/data/ietf-interfaces:interfaces/interface=Loopback0", "172.18.0.1", "GBG loopback"),
+    (GBG, f"restconf/data/ietf-interfaces:interfaces/interface=GigabitEthernet0%2F0%2F{LAN}", "192.168.12.3", "GBG LAN-IP"),
+    (GBG, f"restconf/data/ietf-interfaces:interfaces/interface=GigabitEthernet0%2F0%2F{PC}", "12.12.12.13", "GBG PC-IP"),
+    GBG, f"restconf/data/ietf-interfaces:interfaces/interface=Loopback0", "172.18.0.1", "GBG loopback"),
 
     (ISP, f"restconf/data/Cisco-IOS-XE-native:native/router", "1.1.1.1", "ISP router-id"),
     (STO, f"restconf/data/Cisco-IOS-XE-native:native/router", "2.2.2.2", "STO router-id"),
-    # (GBG, f"restconf/data/Cisco-IOS-XE-native:native/router", "3.3.3.3", "GBG router-id"),
+    (GBG, f"restconf/data/Cisco-IOS-XE-native:native/router", "3.3.3.3", "GBG router-id"),
 
     (ISP, f"restconf/data/Cisco-IOS-XE-native:native/interface/GigabitEthernet=0%2F0%2F{LAN}/ip", '"priority": 0', "ISP prio 0"),
     (STO, f"restconf/data/Cisco-IOS-XE-native:native/interface/GigabitEthernet=0%2F0%2F{LAN}/ip", '"priority": 255', "STO prio 255"),
-    # (GBG, f"restconf/data/Cisco-IOS-XE-native:native/interface/GigabitEthernet=0%2F0%2F{PC}/ip", '"cost": 14', "GBG cost 14"),
+    (GBG, f"restconf/data/Cisco-IOS-XE-native:native/interface/GigabitEthernet=0%2F0%2F{PC}/ip", '"cost": 14', "GBG cost 14"),
 
     (ISP, f"restconf/data/ietf-routing:routing", "0.0.0.0/0", "ISP default-route"),
     (ISP, f"restconf/data/Cisco-IOS-XE-native:native/router", "originate", "ISP skickar default i OSPF"),
@@ -47,7 +47,8 @@ for host, url, finns, text in kontroller:
                         headers={"Accept": "application/yang-data+json"},
                         auth=("admin", password),
                         verify=False)
+    #kontroll om variabeln finns så är de ok annars fel
     if finns in svar.text:
-        print("OK ", text)
+        print("Rober säger OK ", text)
     else:
         print("FEL", text, svar.status_code)
