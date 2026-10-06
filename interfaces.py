@@ -2,19 +2,20 @@ import requests
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-def get_this(host, port, password):
-    url = f"https://{host}/restconf/data/ietf-interfaces:interfaces/interface=GigabitEthernet0%2F0%2F{port}"
+def get_this(host, name, password):
+    url = f"https://{host}/restconf/data/ietf-interfaces:interfaces/interface={name.replace('/', '%2F')}"
     svar = requests.get(url, auth=("admin", password), verify=False)
     print(svar.text)
-    
-def put_this(host, port, ip, netmask, description, password):
+
+def put_this(host, name, ip, netmask, description, password):
     headers = {"Content-Type": "application/yang-data+json"}
-    url = f"https://{host}/restconf/data/ietf-interfaces:interfaces/interface=GigabitEthernet0%2F0%2F{port}"
+    url = f"https://{host}/restconf/data/ietf-interfaces:interfaces/interface={name.replace('/', '%2F')}"
+    typ = "iana-if-type:softwareLoopback" if name.startswith("Loopback") else "iana-if-type:ethernetCsmacd"
     payload = {
         "ietf-interfaces:interface": {
-            "name": f"GigabitEthernet0/0/{port}",
+            "name": name,
             "description": description,
-            "type": "iana-if-type:ethernetCsmacd",
+            "type": typ,
             "enabled": True,
             "ietf-ip:ipv4": {
                 "address": [{"ip": ip, "netmask": netmask}]
@@ -25,6 +26,6 @@ def put_this(host, port, ip, netmask, description, password):
     svar = requests.put(url,
                     json=payload,
                     headers=headers,
-                    auth=("admin", password), 
+                    auth=("admin", password),
                     verify=False)
     print(svar.status_code, svar.text)
