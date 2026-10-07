@@ -1,4 +1,4 @@
-from interfaces import put_this
+from interfaces import put_this, put_loopback
 from ospf import set_ospf, set_default, set_default_route, set_if_ospf
 from grund import set_hostname, save_config
 
@@ -19,13 +19,16 @@ namn = [
 ]
 
 inter = [
-    (ISP, f"GigabitEthernet0/0/{LAN}", "192.168.12.1", "255.255.255.0", "LAN mot STO och GBG"),
-    (ISP, "Loopback0", "172.16.0.1", "255.255.0.0", "Internet"),
-    (STO, f"GigabitEthernet0/0/{LAN}", "192.168.12.2", "255.255.255.0", "LAN mot ISP och GBG"),
-    (STO, "Loopback0", "172.17.0.1", "255.255.0.0", "STO loopback"),
-    # (GBG, f"GigabitEthernet0/0/{LAN}", "192.168.12.3", "255.255.255.0", "LAN mot ISP och STO"),
-    # (GBG, f"GigabitEthernet0/0/{PC}", "12.12.12.13", "255.255.255.252", "Mot PC"),
-    # (GBG, "Loopback0", "172.18.0.1", "255.255.0.0", "GBG loopback"),
+    (ISP, LAN, "192.168.12.1", "255.255.255.0", "LAN mot STO och GBG"),
+    (STO, LAN, "192.168.12.2", "255.255.255.0", "LAN mot ISP och GBG"),
+    # (GBG, LAN, "192.168.12.3", "255.255.255.0", "LAN mot ISP och STO"),
+    # (GBG, PC, "12.12.12.13", "255.255.255.252", "Mot PC"),
+]
+
+loopbacks = [
+    (ISP, "172.16.0.1", "255.255.0.0", "Internet"),
+    (STO, "172.17.0.1", "255.255.0.0", "STO loopback"),
+    # (GBG, "172.18.0.1", "255.255.0.0", "GBG loopback"),
 ]
 
 ospfSettings = [
@@ -53,8 +56,11 @@ ifOspf = [
 for host, hostname in namn:
     set_hostname(host, hostname, password)
 
-for host, name, ip, netmask, description in inter:
-    put_this(host, name, ip, netmask, description, password)
+for host, port, ip, netmask, description in inter:
+    put_this(host, port, ip, netmask, description, password)
+
+for host, ip, netmask, description in loopbacks:
+    put_loopback(host, ip, netmask, description, password)
 
 for host, router_id, networks in ospfSettings:
     set_ospf(host, router_id, networks, password)
