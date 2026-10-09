@@ -15,20 +15,20 @@ PC = 1
 namn = [
     (ISP, "ISP"),
     (STO, "STO"),
-    # (GBG, "GBG"),
+    (GBG, "GBG"),
 ]
 
 inter = [
     (ISP, LAN, "192.168.12.1", "255.255.255.0", "LAN mot STO och GBG"),
     (STO, LAN, "192.168.12.2", "255.255.255.0", "LAN mot ISP och GBG"),
-    # (GBG, LAN, "192.168.12.3", "255.255.255.0", "LAN mot ISP och STO"),
-    # (GBG, PC, "12.12.12.13", "255.255.255.252", "Mot PC"),
+    (GBG, LAN, "192.168.12.3", "255.255.255.0", "LAN mot ISP och STO"),
+    (GBG, PC, "12.12.12.13", "255.255.255.252", "Mot PC"),
 ]
 
 loopbacks = [
     (ISP, "172.16.0.1", "255.255.0.0", "Internet"),
     (STO, "172.17.0.1", "255.255.0.0", "STO loopback"),
-    # (GBG, "172.18.0.1", "255.255.0.0", "GBG loopback"),
+    (GBG, "172.18.0.1", "255.255.0.0", "GBG loopback"),
 ]
 
 ospfSettings = [
@@ -40,17 +40,17 @@ ospfSettings = [
         {"ip": "192.168.12.0", "wildcard": "0.0.0.255", "area": 0},
         {"ip": "172.17.0.0", "wildcard": "0.0.255.255", "area": 0},
     ]),
-    # (GBG, "3.3.3.3", [
-    #     {"ip": "192.168.12.0", "wildcard": "0.0.0.255", "area": 0},
-    #     {"ip": "172.18.0.0", "wildcard": "0.0.255.255", "area": 0},
-    #     {"ip": "12.12.12.12", "wildcard": "0.0.0.3", "area": 0},
-    # ]),
+     (GBG, "3.3.3.3", [
+         {"ip": "192.168.12.0", "wildcard": "0.0.0.255", "area": 0},
+         {"ip": "172.18.0.0", "wildcard": "0.0.255.255", "area": 0},
+         {"ip": "12.12.12.12", "wildcard": "0.0.0.3", "area": 0},
+     ]),
 ]
 
 ifOspf = [
     (ISP, LAN, {"priority": 0}),    # aldrig DR/BDR
     (STO, LAN, {"priority": 255}),  # DR
-    # (GBG, PC, {"cost": 14}),       # länk mot PC
+    (GBG, PC, {"cost": 14}),       # länk mot PC
 ]
 
 for host, hostname in namn:

@@ -25,7 +25,7 @@ kontroller = [
     (STO, f"restconf/data/ietf-interfaces:interfaces/interface=Loopback0", "172.17.0.1", "STO loopback"),
     (GBG, f"restconf/data/ietf-interfaces:interfaces/interface=GigabitEthernet0%2F0%2F{LAN}", "192.168.12.3", "GBG LAN-IP"),
     (GBG, f"restconf/data/ietf-interfaces:interfaces/interface=GigabitEthernet0%2F0%2F{PC}", "12.12.12.13", "GBG PC-IP"),
-    GBG, f"restconf/data/ietf-interfaces:interfaces/interface=Loopback0", "172.18.0.1", "GBG loopback"),
+    (GBG,  f"restconf/data/ietf-interfaces:interfaces/interface=Loopback0", "172.18.0.1", "GBG loopback"),
 
     (ISP, f"restconf/data/Cisco-IOS-XE-native:native/router", "1.1.1.1", "ISP router-id"),
     (STO, f"restconf/data/Cisco-IOS-XE-native:native/router", "2.2.2.2", "STO router-id"),
@@ -49,6 +49,6 @@ for host, url, finns, text in kontroller:
                         verify=False)
     #kontroll om variabeln finns så är de ok annars fel
     if finns in svar.text:
-        print("Rober säger OK ", text)
+        print("Robert säger OK ", text)
     else:
         print("FEL", text, svar.status_code)
