@@ -7,5 +7,4 @@ Automation av en skill med RESTconf från CCNA.
 
 Kör: python main.py, sedan python robert.py
 
-En sidnot
-Certifikatbaserad autentisering fick vi inte att fungera under labbtiden. Skripten använder därför användarnamn och lösenord över HTTPS med verify=False. Det uppfyller inte kravet på hög säkerhet och tas även upp i rapportens diskussion.
+Uppgiften kräver säker autentisering och inte användarnamn/lösenord. Vi lade flera timmar på att få certifikatbaserad autentisering mot RESTconf att fungera, men lyckades inte. Skripten använder därför användarnamn och lösenord över HTTPS med verify=False. Vi är medvetna om att det inte uppfyller kravet.
